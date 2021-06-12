@@ -1,0 +1,19 @@
+.list-group-item {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.list-title {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.list-header-container {
+  float: left;
+}
+
+.list-group-header {
+  list-style: none;
+}
