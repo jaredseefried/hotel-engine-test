@@ -1,0 +1,28 @@
+.repo-item {
+  list-style-type: none;
+  width: 100%;
+  height: auto;
+  padding: 20px 0px;
+}
+
+.repo-item:nth-child(odd) {
+  background-color: #dee2e6;
+}
+
+.github-avatar {
+  max-width: 75px;
+  max-height: 75px;
+  object-fit: cover;
+}
+
+.repoUrl {
+  word-wrap: break-word;
+}
+
+.user-name {
+  padding-top: 25px;
+}
+
+.desc-container {
+  padding-left: 2%;
+}

@@ -3,44 +3,56 @@ import '../ListHeader/ListHeader.css';
 
 function ListHeader(props) {
   return (
-    <div className="container col-12 list-header">
+    <div className="list-header col-12">
       <ul className="list-group list-group-header">
-        <li className="list-group-header col-12">
-          <div className="col-2 list-header-container">
-            <button className="btn btn-dark text-center list-title" onClick={props.sortID}>
-              Image
-            </button>
-          </div>
-          <div className="col-3 list-header-container">
+        <li className="list-group-header">
+          <div className="col-1 list-header-container">
             <button
-              className="btn btn-dark text-center list-title"
+              className="btn btn-dark list-title"
               onClick={props.sortName}
             >
-              Name
+              Repo Info
             </button>
           </div>
-          <div className="col-2 list-header-container">
+          <div className="col-1 list-header-container">
             <button
-              className="btn btn-dark text-center list-title"
+              className="btn btn-dark list-title"
               onClick={props.sortDept}
             >
-              Dept
+              Repo Name
             </button>
           </div>
-          <div className="col-3 list-header-container">
+          <div className="col-4 list-header-container">
             <button
-              className="btn btn-dark text-center list-title"
+              className="btn btn-dark list-title"
+              id='description'
               onClick={props.sortEmail}
             >
-              Email
+              Description
             </button>
           </div>
           <div className="col-2 list-header-container">
             <button
-              className="btn btn-dark text-center list-title"
+              className="btn btn-dark list-title"
               onClick={props.sortPhone}
             >
-              Phone
+              Stars
+            </button>
+          </div>
+          <div className="col-2 list-header-container">
+            <button
+              className="btn btn-dark list-title"
+              onClick={props.sortPhone}
+            >
+              Language
+            </button>
+          </div>
+          <div className="col-2 list-header-container">
+            <button
+              className="btn btn-dark list-title"
+              onClick={props.sortPhone}
+            >
+              Name
             </button>
           </div>
         </li>

@@ -5,9 +5,7 @@ import RepoList from './containers/RepoList/RepoList';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Navigation />
-      </header>
+      <Navigation />
       <RepoList />
     </div>
   );
