@@ -24,10 +24,6 @@ function RepoList(props) {
       });
   }
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setRepoData({ ...repoData, [name]: value });
-  // };
 
   return (
     <>
@@ -44,7 +40,7 @@ function RepoList(props) {
               repoUrl={object.html_url}
               stargazers_count={object.stargazers_count}
               language={object.language}
-              owner={object.full_name}
+              owner={object.owner.login}
             />
           )
         })}
