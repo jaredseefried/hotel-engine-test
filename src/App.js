@@ -4,27 +4,37 @@ import ListHeader from './components/ListHeader';
 import RepositoryItem from './components/RepositoryItem';
 import API from './utils/API';
 import './App.css';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from '@emotion/react'
+
+const override = css`
+display: block;
+margin: 10% auto;
+color: pink;
+`;
+
 
 function App() {
   const [repoData, setRepoData] = useState([])
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
-    loadRepos()
-  }, [])
-
-  const loadRepos = () => {
+    setLoading(true)
     API.githubRepositories()
       .then(response => {
         setRepoData(response.data.items)
-        // console.log(repoData);
+      })
+      .then(() => {
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+
+  }, [])
 
   const handleInputChange = event => {
     setSearch(event.target.value);
@@ -36,9 +46,13 @@ function App() {
 
 
   const loadSearchResults = () => {
+    setLoading(true)
     API.searchTerms(search)
       .then((response) => {
         setRepoData([...response.data.items])
+      })
+      .then(() => {
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error);
@@ -58,25 +72,36 @@ function App() {
         }}
       />
       <ListHeader />
-      <ul>
-        {repoData.map((object, index) => {
-          return (
-            <RepositoryItem
-              {...repoData}
-              key={index}
-              name={object.name}
-              description={object.description}
-              image={object.owner.avatar_url}
-              repoUrl={object.html_url}
-              stargazers_count={object.stargazers_count}
-              language={object.language}
-              owner={object.owner.login}
-              link={object.homepage}
-              created={object.created_at}
-            />
-          )
-        })}
-      </ul>
+      {
+        loading ?
+          <ClipLoader
+            loading={loading}
+            css={override}
+            size={100}
+
+          />
+          :
+          <ul>
+            {repoData.map((object, index) => {
+              return (
+                <RepositoryItem
+                  {...repoData}
+                  key={index}
+                  name={object.name}
+                  description={object.description}
+                  image={object.owner.avatar_url}
+                  repoUrl={object.html_url}
+                  stargazers_count={object.stargazers_count}
+                  language={object.language}
+                  owner={object.owner.login}
+                  link={object.homepage}
+                  created={object.created_at}
+                />
+              )
+            })}
+          </ul>
+
+      }
     </div>
   );
 }
