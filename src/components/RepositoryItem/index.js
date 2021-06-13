@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './RepositoryItem.css'
-import RepoDetail from '../../containers/RepoDetail/RepoDetail';
+import RepoDetail from '../../containers/RepoDetail';
 
 const RepositoryItem = (props) => {
   const [modalShow, setModalShow] = useState(false);
