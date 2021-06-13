@@ -41,6 +41,8 @@ function RepoList(props) {
               stargazers_count={object.stargazers_count}
               language={object.language}
               owner={object.owner.login}
+              link={object.homepage}
+              created={object.created_at}
             />
           )
         })}

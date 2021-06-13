@@ -20,9 +20,10 @@
 }
 
 .user-name {
-  padding-top: 25px;
+  /* padding-top: 25px; */
+  font-size: 14px;
 }
 
-.desc-container {
-  padding-left: 2%;
+.repo-info {
+  font-size: 14px;
 }
