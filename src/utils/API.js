@@ -12,7 +12,4 @@ export default {
       "&per_page=100&sort=stars&order=desc"
     );
   },
-  sortByStars: function (order) {
-    return axios.get("https://api.github.com/search/repositories?q=javascript&per_page=100&sort=stars&order=" + order)
-  }
 }

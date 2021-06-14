@@ -25,7 +25,6 @@ function Navigation(props) {
         <Button
           onClick={props.onClick}
           variant="outline-light">Search</Button>
-
       </Form>
     </Navbar>
   );

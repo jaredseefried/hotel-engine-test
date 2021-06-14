@@ -39,6 +39,7 @@ function ListHeader(props) {
           <div className="col-2 list-header-container">
             <button
               className="btn btn-dark list-title"
+              onClick={props.filterLanguage}
             >
               Language
             </button>
