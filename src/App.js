@@ -10,16 +10,18 @@ import { css } from '@emotion/react'
 const override = css`
 display: block;
 margin: 10% auto;
-color: pink;
 `;
 
-
 function App() {
-  const [repoData, setRepoData] = useState([])
+  const [repoData, setRepoData] = useState([]);
+
   const [search, setSearch] = useState("");
+
   const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
 
+  const [sorted, setSorted] = useState(false);
 
   useEffect(() => {
     setLoading(true)
@@ -44,7 +46,6 @@ function App() {
     event.preventDefault();
   };
 
-
   const loadSearchResults = () => {
     setLoading(true)
     API.searchTerms(search)
@@ -59,6 +60,20 @@ function App() {
       });
   }
 
+  const sortedStars = (e) => {
+    e.preventDefault()
+    const copiedArray = [...repoData]
+    if (!sorted) {
+      const ascArray = copiedArray.sort((a, b) => a.stargazers_count - b.stargazers_count)
+      setRepoData(ascArray)
+      setSorted(true)
+    } else if (sorted) {
+      const descArray = copiedArray.sort((a, b) => b.stargazers_count - a.stargazers_count)
+      setRepoData(descArray)
+      setSorted(false)
+    }
+  }
+
   return (
     <div className="App">
       <Navigation
@@ -71,36 +86,35 @@ function App() {
           loadSearchResults()
         }}
       />
-      <ListHeader />
-      {
-        loading ?
-          <ClipLoader
-            loading={loading}
-            css={override}
-            size={100}
-
-          />
-          :
-          <ul>
-            {repoData.map((object, index) => {
-              return (
-                <RepositoryItem
-                  {...repoData}
-                  key={index}
-                  name={object.name}
-                  description={object.description}
-                  image={object.owner.avatar_url}
-                  repoUrl={object.html_url}
-                  stargazers_count={object.stargazers_count}
-                  language={object.language}
-                  owner={object.owner.login}
-                  link={object.homepage}
-                  created={object.created_at}
-                />
-              )
-            })}
-          </ul>
-
+      <ListHeader
+        sortStars={sortedStars}
+      />
+      {loading ?
+        <ClipLoader
+          loading={loading}
+          css={override}
+          size={100}
+        />
+        :
+        <ul>
+          {repoData.map((object, index) => {
+            return (
+              <RepositoryItem
+                {...repoData}
+                key={index}
+                name={object.name}
+                description={object.description}
+                image={object.owner.avatar_url}
+                repoUrl={object.html_url}
+                stargazers_count={object.stargazers_count}
+                language={object.language}
+                owner={object.owner.login}
+                link={object.homepage}
+                created={object.created_at}
+              />
+            )
+          })}
+        </ul>
       }
     </div>
   );

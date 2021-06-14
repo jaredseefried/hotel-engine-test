@@ -9,7 +9,6 @@ function ListHeader(props) {
           <div className="col-1 list-header-container">
             <button
               className="btn btn-dark list-title"
-              onClick={props.sortName}
             >
               Repo Info
             </button>
@@ -17,7 +16,6 @@ function ListHeader(props) {
           <div className="col-1 list-header-container">
             <button
               className="btn btn-dark list-title"
-              onClick={props.sortDept}
             >
               Repo Name
             </button>
@@ -26,7 +24,6 @@ function ListHeader(props) {
             <button
               className="btn btn-dark list-title"
               id='description'
-              onClick={props.sortEmail}
             >
               Description
             </button>
@@ -34,7 +31,7 @@ function ListHeader(props) {
           <div className="col-2 list-header-container">
             <button
               className="btn btn-dark list-title"
-              onClick={props.sortPhone}
+              onClick={props.sortStars}
             >
               Stars
             </button>
@@ -42,7 +39,6 @@ function ListHeader(props) {
           <div className="col-2 list-header-container">
             <button
               className="btn btn-dark list-title"
-              onClick={props.sortPhone}
             >
               Language
             </button>
@@ -50,7 +46,6 @@ function ListHeader(props) {
           <div className="col-2 list-header-container">
             <button
               className="btn btn-dark list-title"
-              onClick={props.sortPhone}
             >
               Name
             </button>
