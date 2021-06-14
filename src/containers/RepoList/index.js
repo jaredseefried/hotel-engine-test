@@ -5,6 +5,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 import API from '../../utils/API';
 import { css } from '@emotion/react'
 import Navigation from '../../components/Navigation'
+import FilterList from '../../components/FilterList';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { DropdownButton } from 'react-bootstrap';
 
 const override = css`
 display: block;
@@ -13,6 +16,8 @@ margin: 10% auto;
 
 function RepoList(props) {
   const [repoData, setRepoData] = useState([]);
+
+  const [languageDropdown, setLanguageDropdown] = useState([])
 
   const [search, setSearch] = useState("");
 
@@ -34,7 +39,7 @@ function RepoList(props) {
       .catch((error) => {
         console.log(error);
       });
-
+    showLanguages()
   }, [])
 
   const handleInputChange = event => {
@@ -73,16 +78,20 @@ function RepoList(props) {
     }
   }
 
-  const filterLanguages = (e) => {
-    e.preventDefault()
-    const newArray = [...repoData]
-    const filterLanguage = newArray.filter((object) => {
-      if (object.language === 'TypeScript') {
-        return object
-      }
-    })
-    console.log(filterLanguage)
+  const filterLanguages = (item) => {
+    console.log(item.target.id);
 
+  }
+
+  const showLanguages = (e) => {
+    const newArray = [...repoData]
+    const uniqueArr = []
+    const filterArray = newArray.filter((object) => {
+      uniqueArr.push(object.language)
+    })
+    let values = [...new Set(uniqueArr)]
+    setLanguageDropdown(values)
+    // console.log(languageDropdown);
   }
 
   return (
@@ -97,10 +106,25 @@ function RepoList(props) {
           loadSearchResults()
         }}
       />
+      <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+        {languageDropdown.map((item, i) => {
+          return (
+            <FilterList
+              {...languageDropdown}
+              key={i}
+              language={item}
+              filterLanguage={filterLanguages}
+            />
+          )
+        })}
+      </DropdownButton>
       <ListHeader
         sortStars={sortedStars}
-        filterLanguage={filterLanguages}
+
       />
+
+
+
       {loading ?
         <ClipLoader
           loading={loading}

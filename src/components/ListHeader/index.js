@@ -30,7 +30,7 @@ function ListHeader(props) {
           </div>
           <div className="col-2 list-header-container">
             <button
-              className="btn btn-dark list-title"
+              className="btn btn-dark list-title dropdown-toggle"
               onClick={props.sortStars}
             >
               Stars
@@ -38,8 +38,7 @@ function ListHeader(props) {
           </div>
           <div className="col-2 list-header-container">
             <button
-              className="btn btn-dark list-title"
-              onClick={props.filterLanguage}
+              className="btn btn-dark list-title dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
             >
               Language
             </button>
