@@ -33,37 +33,41 @@ const RepoDetail = (props) => {
             <img src={props.image} alt="..." className='rounded github-avatar' />
           </Col>
           <Col lg={10}>
-            <p>{props.description}</p>
-            <Row>
+            <p className='text-center'>{props.description}</p>
+            <Row className="info-row">
               <Col lg={2}>
-                Stars:
+                <Row>
+                  <p className='text-center'>Stars:</p>
+                </Row>
+                <Row>
+                  <FaStar className='react-icon' />{props.stargazers_count}
+                </Row>
               </Col>
               <Col lg={3}>
-                Language:
+                <Row>
+                  <p className='text-center'> Language:</p>
+                </Row>
+                <Row>
+                  <p className='text-center'>{props.language}</p>
+                </Row>
               </Col>
               <Col lg={6}>
-                Created:
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={2}>
-                <FaStar className='react-icon' />{props.stargazers_count}
-              </Col>
-              <Col lg={3}>
-                {props.language}
-              </Col>
-              <Col lg={6}>
-                {props.created}
+                <Row>
+                  <p className='text-center'> Created:</p>
+                </Row>
+                <Row>
+                  <p className='text-center'>{props.created}</p>
+                </Row>
               </Col>
             </Row>
             <Container className='links-container'>
               <Row>
                 <FaGithub className='react-icon' />
-                <p>{props.repoUrl}</p>
+                <a href={props.repoUrl} target='_blank' className="modal-link">{props.repoUrl}</a>
               </Row>
               <Row>
                 <FaExternalLinkSquareAlt className='react-icon' />
-                <p>{props.link}</p>
+                <a href={props.link} target='_blank' className="modal-link">{props.link}</a>
               </Row>
             </Container>
           </Col>

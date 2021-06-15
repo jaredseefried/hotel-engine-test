@@ -17,11 +17,11 @@ Finally, the app should be fully responsive and follow best practices in impleme
 
 ---
 
-![Image of the main page](./client/src/images)
+![Image of the main page](./public/images/main-page.jpg)
 
 # Technology Used
 
-- HitHub API from [GitHub API](https://docs.github.com/en/rest/reference/search#search-repositories)
+- [GitHub API](https://docs.github.com/en/rest/reference/search#search-repositories)
 - [React](https://reactjs.org/)
 - [Axios](https://axios-http.com/)
 - [Bootstrap](https://getbootstrap.com/)

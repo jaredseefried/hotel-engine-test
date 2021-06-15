@@ -215,28 +215,28 @@ function RepoList(props) {
           size={100}
         />
         :
-        <Col>
-          <ul>
-            {/* javascript .map method to dynamically render a list of Repository items and set props to be passed down the tree */}
-            {repoData.map((object, index) => {
-              return (
-                <RepositoryItem
-                  {...repoData}
-                  key={index}
-                  name={object.name}
-                  description={object.description}
-                  image={object.owner.avatar_url}
-                  repoUrl={object.html_url}
-                  stargazers_count={object.stargazers_count}
-                  language={object.language}
-                  owner={object.owner.login}
-                  link={object.homepage}
-                  created={object.created_at}
-                />
-              )
-            })}
-          </ul>
-        </Col>
+
+        <ul>
+          {/* javascript .map method to dynamically render a list of Repository items and set props to be passed down the tree */}
+          {repoData.map((object, index) => {
+            return (
+              <RepositoryItem
+                {...repoData}
+                key={index}
+                name={object.name}
+                description={object.description}
+                image={object.owner.avatar_url}
+                repoUrl={object.html_url}
+                stargazers_count={object.stargazers_count}
+                language={object.language}
+                owner={object.owner.login}
+                link={object.homepage}
+                created={object.created_at}
+              />
+            )
+          })}
+        </ul>
+
       }
     </div>
   );

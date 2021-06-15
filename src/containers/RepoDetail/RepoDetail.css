@@ -8,4 +8,14 @@
 
 .react-icon {
   font-size: 25px;
+  margin-right: 10px
+}
+
+.modal-link {
+  font-size: 14px;
+  width: 100%;
+}
+
+.info-row {
+  margin: 0 auto;
 }

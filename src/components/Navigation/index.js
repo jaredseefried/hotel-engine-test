@@ -5,9 +5,6 @@ import Nav from 'react-bootstrap/Nav'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-//CSS
-import './navigation.css'
-
 //Functional Component - Navigation Bar with Search Input Field
 //The search works on Search Button Click
 function Navigation(props) {
