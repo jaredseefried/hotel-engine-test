@@ -1,12 +1,18 @@
+//Dependencies
 import React from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'
 import { FaGithub, FaExternalLinkSquareAlt, FaStar } from 'react-icons/fa'
+
+//Containers
 import Container from 'react-bootstrap/Container'
+
+// CSS
 import './RepoDetail.css'
 
+// Functional Component that displays a react-bootstrap modal with details from the clicked repository item. For the requirement of a second page to show data by the repo. I used a Modal instead of an actual page which is intended to stay inline with a Single page application.
 const RepoDetail = (props) => {
   return (
     <Modal
@@ -28,7 +34,6 @@ const RepoDetail = (props) => {
           </Col>
           <Col lg={10}>
             <p>{props.description}</p>
-
             <Row>
               <Col lg={2}>
                 Stars:
@@ -61,7 +66,6 @@ const RepoDetail = (props) => {
                 <p>{props.link}</p>
               </Row>
             </Container>
-
           </Col>
         </Row>
       </Modal.Body>

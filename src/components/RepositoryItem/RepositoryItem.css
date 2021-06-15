@@ -20,10 +20,15 @@
 }
 
 .user-name {
-  /* padding-top: 25px; */
   font-size: 14px;
 }
 
 .repo-info {
   font-size: 14px;
+}
+
+@media only screen and (max-width: 400px) {
+  .repo-item-col {
+    margin-top: 5%;
+  }
 }

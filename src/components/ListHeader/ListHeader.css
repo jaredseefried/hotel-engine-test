@@ -1,12 +1,8 @@
 .list-group-item {
-  /* display: block; */
-  /* margin: 0 auto; */
   width: 100%;
 }
 
 .list-title {
-  /* display: block; */
-  /* margin: 0 auto; */
   width: 100%;
   padding: 10px 0px;
   border-radius: 0px;
@@ -17,7 +13,6 @@
 .list-header-container {
   float: left;
   padding: 0px;
-  /* width: 100%; */
 }
 
 .list-group-header {
@@ -30,4 +25,10 @@
 
 #description {
   padding-left: 8%;
+}
+
+@media only screen and (max-width: 400px) {
+  .list-header {
+    display: none;
+  }
 }
