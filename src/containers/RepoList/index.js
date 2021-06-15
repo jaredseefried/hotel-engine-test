@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from '@emotion/react'
 import { DropdownButton } from 'react-bootstrap';
-import Col from 'react-bootstrap/Col'
 
 //Components
 import ListHeader from '../../components/ListHeader';
@@ -43,7 +42,6 @@ function RepoList(props) {
 
   // useEffect Hook to load Data and call functions on page load.
   useEffect(() => {
-
     //Let Loading State to True so we see a spinning Icon showing data is being retrieved
     setLoading(true)
 
@@ -51,17 +49,20 @@ function RepoList(props) {
     API.githubRepositories()
       .then(response => {
         //Set data to RepoData State
-        setRepoData(response.data.items)
-      })
-      .then(() => {
-        //Call Function to Filter the available languages from the response and call function
-        showLanguages()
+        const array = []
+        const data = response.data.items;
+        setRepoData(data)
+        data.filter((object) => {
+          array.push(object.language);
+        })
+        const uniqueList = [...new Set(array)]
+        setLanguageDropdown(uniqueList)
       })
       .then(() => {
         //Once Data is initialized, set loading state to false and removing spinning Icon
         setLoading(false)
       })
-      //Catch an errors and Console.log them.
+      //Catch an errors and console.log them.
       .catch((error) => {
         console.log(error);
       });
@@ -70,7 +71,6 @@ function RepoList(props) {
 
   // Handle the change of the search input for when a user searches a specific repository
   const handleInputChange = event => {
-
     //Set the search State to the value typed
     setSearch(event.target.value);
   };
@@ -80,43 +80,24 @@ function RepoList(props) {
     event.preventDefault();
   };
 
-  //Function to show the available languages in RepoData then extract them to setLanguageDropdown State
-  const showLanguages = () => {
-
-    // Copy the State
-    const newArray = [...repoData]
-
-    // Create empty array to push Languages to
-    const uniqueArr = []
-
-    //Filter the object and push the language to empty array
-    newArray.filter((object) => {
-      if (object.language) {
-        //Push element to array
-        uniqueArr.push(object.language)
-      }
-    })
-
-    // create Unique set of Array
-    let values = [...new Set(uniqueArr)]
-
-    //Set the state with the values
-    setLanguageDropdown(values)
-  }
-
   // Function to load the results a user searched for
   const loadSearchResults = () => {
-
     //Set loading State to True
     setLoading(true)
 
     // Call API with specific user generated search
     API.searchTerms(search)
       .then((response) => {
+        const array = []
+        const data = [...response.data.items]
         //Set the data to what was search/queries by use
-        setRepoData([...response.data.items])
+        setRepoData(data)
         //Show available languages
-        showLanguages()
+        data.filter((object) => {
+          array.push(object.language);
+        })
+        const uniqueList = [...new Set(array)]
+        setLanguageDropdown(uniqueList)
       })
       .then(() => {
         setLoading(false)
@@ -149,27 +130,21 @@ function RepoList(props) {
 
   //Function to filter the data list by Language selected in the dropdown menu
   const filterLanguages = (item) => {
-
     //Target the value in the dropdown list
     const value = item.target.id;
 
-    //Copy the RepoData and create empty arrays to hold data we want to show in array and hold the data we don't want in array2. The objective of array2 is to hold for a user makes a new language selection, the state will change to the new data selection. I have not be able to get the ladder to work. The current functionality only filters once. 
-    const newArray = [...repoData]
     const array = []
-    const array2 = []
 
     //filter data by option selected
-    newArray.filter((object) => {
+    repoData.filter((object) => {
 
       // if the language in the object and the value equal, change the data to show only that language
       if (object.language === value) {
         array.push(object)
-        setRepoData(array)
-      } else {
-        array2.push(object)
-        showLanguages()
       }
+
     })
+    setRepoData(array)
   }
 
   return (
@@ -183,20 +158,21 @@ function RepoList(props) {
         search={search}
         onClick={() => {
           loadSearchResults()
+          // showLanguages()
         }}
       />
 
       {/* React-Bootstrap dropdown button using the .map method to dynamically render a list of available languages to choose and when a language is selected, the repository list is rendered with repository items matching selection. */}
-      <DropdownButton id="dropdown-basic-button" title="Select Language">
+      <DropdownButton
+        id="dropdown-basic-button"
+        title="Select Language">
         {languageDropdown.map((item, i) => {
           return (
             <FilterList
               {...languageDropdown}
               key={i}
               language={item}
-              filterLanguage={
-                filterLanguages
-              }
+              filterLanguage={filterLanguages}
             />
           )
         })}
@@ -216,7 +192,7 @@ function RepoList(props) {
         />
         :
 
-        <ul>
+        <ul id='repo-item-ul'>
           {/* javascript .map method to dynamically render a list of Repository items and set props to be passed down the tree */}
           {repoData.map((object, index) => {
             return (
@@ -236,7 +212,6 @@ function RepoList(props) {
             )
           })}
         </ul>
-
       }
     </div>
   );

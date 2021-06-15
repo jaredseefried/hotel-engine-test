@@ -13,7 +13,7 @@ The objective is to build a GitHub Repository search application using the gitHu
 Each result when selected should route to a detailed screen that displays information about the repository. The results should contain the repository name, description, number of stars, language, and the owners name. You can include more information as you see fit to enhance the UI.
 Finally, the app should be fully responsive and follow best practices in implementing a responsive website.
 
-## Deployed Site @
+## Deployed Site @ https://repo-search-hotel-engin.herokuapp.com/
 
 ---
 
@@ -21,12 +21,13 @@ Finally, the app should be fully responsive and follow best practices in impleme
 
 # Technology Used
 
-- [GitHub API](https://docs.github.com/en/rest/reference/search#search-repositories)
 - [React](https://reactjs.org/)
+- [Node](https://nodejs.org/en/)
 - [Axios](https://axios-http.com/)
 - [Bootstrap](https://getbootstrap.com/)
 - [React-Bootstrap](https://react-bootstrap.github.io/)
 - [Emotion CSS](hhttps://emotion.sh/docs/introduction)
+- [GitHub API](https://docs.github.com/en/rest/reference/search#search-repositories)
 
 # Installation Requirements
 
