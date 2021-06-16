@@ -12,7 +12,7 @@ import Container from 'react-bootstrap/Container'
 // CSS
 import './RepoDetail.css'
 
-// Functional Component that displays a react-bootstrap modal with details from the clicked repository item. For the requirement of a second page to show data by the repo. I used a Modal instead of an actual page which is intended to stay inline with a Single page application.
+// Functional Component that displays a react-bootstrap modal with details from the clicked repository item. For the requirement of a second page to show data by the repo. I used a Modal instead of an actual page.
 const RepoDetail = (props) => {
   return (
     <Modal
@@ -63,11 +63,11 @@ const RepoDetail = (props) => {
             <Container className='links-container'>
               <Row>
                 <FaGithub className='react-icon' />
-                <a href={props.repoUrl} target='_blank' className="modal-link">{props.repoUrl}</a>
+                <a href={props.repoUrl} target='_blank' className="modal-link" rel="noreferrer" >{props.repoUrl}</a>
               </Row>
               <Row>
                 <FaExternalLinkSquareAlt className='react-icon' />
-                <a href={props.link} target='_blank' className="modal-link">{props.link}</a>
+                <a href={props.link} target='_blank' className="modal-link" rel="noreferrer" >{props.link}</a>
               </Row>
             </Container>
           </Col>

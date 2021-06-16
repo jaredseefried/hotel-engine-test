@@ -28,7 +28,7 @@ function RepoList(props) {
   //Repository Data State
   const [repoData, setRepoData] = useState([]);
 
-  //Defining another data state for when a user wants to go back to their results, we can set the view back tot he original results. 
+  //Back to results State 
   const [backToResults, setBackToResults] = useState([])
 
   //Select Language Dropdown Filter State
@@ -45,19 +45,20 @@ function RepoList(props) {
 
   // useEffect Hook to load Data and call functions on page load.
   useEffect(() => {
-    //Let Loading State to True so we see a spinning Icon showing data is being retrieved
+    //Set Loading State to True so we see a spinning Icon showing data is being retrieved
     setLoading(true)
 
     // Call API to github Repo API
     API.githubRepositories()
       .then(response => {
-        //Set response to RepoData and back to results State
         const array = []
+
+        //Set the response to RepoData state and backToResults State
         const data = response.data.items;
         setRepoData(data)
         setBackToResults(data)
 
-        //Filter object by language and push the object to an array
+        //Filter the response by language and push the object to an array
         data.filter((object) => {
           array.push(object.language);
         })
@@ -90,7 +91,7 @@ function RepoList(props) {
     event.preventDefault();
   };
 
-  // Function to load the results a user searched for
+  // Function to load the results queried
   const loadSearchResults = () => {
     //Set loading State to True
     setLoading(true)
@@ -99,14 +100,18 @@ function RepoList(props) {
     API.searchTerms(search)
       .then((response) => {
         const array = []
+
+        //Set the data to what was searched
         const data = [...response.data.items]
-        //Set the data to what was search/queries by use
         setRepoData(data)
         setBackToResults(data)
-        //Show available languages
+
+        //Filter the available languages to set in the dropdown menu
         data.filter((object) => {
           array.push(object.language);
         })
+
+        //Create a unique list and set the state
         const uniqueList = [...new Set(array)]
         setLanguageDropdown(uniqueList)
       })
@@ -125,9 +130,8 @@ function RepoList(props) {
     //Copy State
     const copiedArray = [...repoData]
 
-    // If sorted equals False
+    // If sorted equals False, Sort the data by Ascending Order, set the RepoData list to the sorted criteria, and set sorted to true
     if (!sorted) {
-      // Sort the data Ascending Order, set the RepoData list to the sorted criteria, and set sorted to true
       const ascArray = copiedArray.sort((a, b) => a.stargazers_count - b.stargazers_count)
       setRepoData(ascArray)
       setSorted(true)
@@ -142,8 +146,10 @@ function RepoList(props) {
 
   //Function to filter the data list by Language selected in the dropdown menu
   const filterLanguages = (item) => {
+
     //Target the value in the dropdown list
     const value = item.target.id;
+
     const duplicated = [...backToResults]
     const array = []
 
@@ -177,7 +183,7 @@ function RepoList(props) {
         }}
       />
 
-      {/* React-Bootstrap dropdown button using the .map method to dynamically render a list of available languages to choose and when a language is selected, the repository list is rendered with repository items matching selection. */}
+      {/* React-Bootstrap dropdown button using the .map method to dynamically render a list of available languages to choose and when a language is selected, the repository list is rendered with repository items matching the selection. */}
       <DropdownButton
         id="dropdown-basic-button"
         title="Select Language">
@@ -201,7 +207,7 @@ function RepoList(props) {
         </Dropdown.Item>
       </DropdownButton>
 
-      {/* The column 'stars' in the ListHeader Component takes in a sortedStars function prop when clicked sorts the stars column by ascending and descending order. */}
+      {/* The column 'stars' in the ListHeader Component takes in a sortedStars function prop and when clicked, it sorts the stars column by ascending and descending order. */}
       <ListHeader
         sortStars={sortedStars}
       />
