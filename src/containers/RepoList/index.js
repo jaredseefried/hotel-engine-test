@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from '@emotion/react'
-import { DropdownButton } from 'react-bootstrap';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 //Components
 import ListHeader from '../../components/ListHeader';
@@ -28,6 +28,8 @@ function RepoList(props) {
   //Repository Data State
   const [repoData, setRepoData] = useState([]);
 
+  const [backToResults, setBackToResults] = useState([])
+
   //Select Language Dropdown Filter State
   const [languageDropdown, setLanguageDropdown] = useState([])
 
@@ -45,13 +47,14 @@ function RepoList(props) {
     //Let Loading State to True so we see a spinning Icon showing data is being retrieved
     setLoading(true)
 
-    // Call API to guthub Repo API
+    // Call API to github Repo API
     API.githubRepositories()
       .then(response => {
-        //Set data to RepoData State
+        //Set response to RepoData State
         const array = []
         const data = response.data.items;
         setRepoData(data)
+        setBackToResults(data)
         data.filter((object) => {
           array.push(object.language);
         })
@@ -92,6 +95,7 @@ function RepoList(props) {
         const data = [...response.data.items]
         //Set the data to what was search/queries by use
         setRepoData(data)
+        setBackToResults(data)
         //Show available languages
         data.filter((object) => {
           array.push(object.language);
@@ -132,19 +136,20 @@ function RepoList(props) {
   const filterLanguages = (item) => {
     //Target the value in the dropdown list
     const value = item.target.id;
-
+    const duplicated = [...backToResults]
     const array = []
 
-    //filter data by option selected
-    repoData.filter((object) => {
+    if (value === 'revert') {
+      setRepoData(backToResults)
+    } else {
+      duplicated.find((object) => {
+        if (object.language === value) {
+          array.push(object)
+        }
+      })
+      setRepoData(array)
+    }
 
-      // if the language in the object and the value equal, change the data to show only that language
-      if (object.language === value) {
-        array.push(object)
-      }
-
-    })
-    setRepoData(array)
   }
 
   return (
@@ -176,6 +181,14 @@ function RepoList(props) {
             />
           )
         })}
+        <Dropdown.Item
+          onClick={filterLanguages}
+          className="dropdown-item"
+          value='revert'
+          id='revert'
+        >
+          Back To Results
+        </Dropdown.Item>
       </DropdownButton>
 
       {/* The column 'stars' in the ListHeader Component takes in a sortedStars function prop when clicked sorts the stars column by ascending and descending order. */}
