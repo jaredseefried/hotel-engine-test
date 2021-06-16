@@ -28,6 +28,7 @@ function RepoList(props) {
   //Repository Data State
   const [repoData, setRepoData] = useState([]);
 
+  //Defining another data state for when a user wants to go back to their results, we can set the view back tot he original results. 
   const [backToResults, setBackToResults] = useState([])
 
   //Select Language Dropdown Filter State
@@ -50,19 +51,25 @@ function RepoList(props) {
     // Call API to github Repo API
     API.githubRepositories()
       .then(response => {
-        //Set response to RepoData State
+        //Set response to RepoData and back to results State
         const array = []
         const data = response.data.items;
         setRepoData(data)
         setBackToResults(data)
+
+        //Filter object by language and push the object to an array
         data.filter((object) => {
           array.push(object.language);
         })
+
+        //Remove duplicates
         const uniqueList = [...new Set(array)]
+
+        //Set the language dropdown to the unique set
         setLanguageDropdown(uniqueList)
       })
       .then(() => {
-        //Once Data is initialized, set loading state to false and removing spinning Icon
+        //Once Data is initialized, set loading state to false to remove spinning Icon
         setLoading(false)
       })
       //Catch an errors and console.log them.
@@ -124,6 +131,7 @@ function RepoList(props) {
       const ascArray = copiedArray.sort((a, b) => a.stargazers_count - b.stargazers_count)
       setRepoData(ascArray)
       setSorted(true)
+
       // If sorted is True, sort by Descending, set the data state and list sorted as false
     } else if (sorted) {
       const descArray = copiedArray.sort((a, b) => b.stargazers_count - a.stargazers_count)
@@ -139,8 +147,11 @@ function RepoList(props) {
     const duplicated = [...backToResults]
     const array = []
 
+    //Set the state back to the original results onClick
     if (value === 'revert') {
       setRepoData(backToResults)
+
+      //Find the object that the language matches the value selected in the dropdown
     } else {
       duplicated.find((object) => {
         if (object.language === value) {
@@ -149,7 +160,6 @@ function RepoList(props) {
       })
       setRepoData(array)
     }
-
   }
 
   return (
